@@ -2,23 +2,29 @@ package com.codewardev;
 
 // https://www.codewars.com/kata/52685f7382004e774f0001f7/train/java
 
+import java.sql.Time;
+import java.time.Instant;
+
 public class HumanReadableTime {
 
 	public static String makeReadable(int seconds) {
 		
-		String[] dividends = {"10", "6", ":", "10", "6", ":", "10", "10"};
+		String[] divisor = {"10", "6", ":", "10", "6", ":", "10", "10"};
+		
+		Time a = new Time(seconds);
+		System.out.println("minute: "+a.getSeconds());
 		
 		String hrt = "";
-		for(int i=0; i<dividends.length; i++) {
+		for(int i=0; i<divisor.length; i++) {
 			try {
-				hrt = (seconds % Integer.valueOf(dividends[i])) + hrt;
-				seconds /= Integer.valueOf(dividends[i]);
+				int x = Integer.valueOf(divisor[i]);
+				hrt = (seconds % x) + hrt;
+				seconds /= x;
 			} catch(NumberFormatException e) {
-				hrt = dividends[i]+hrt;
+				hrt = divisor[i]+hrt;
 			}
 		}
 
-		System.out.println("hrt: "+hrt);
 		return hrt;
 	}
 
